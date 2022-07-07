@@ -12,13 +12,22 @@ const App = () => {
     ]);
 
     const handleAddTask = (taskName: string) => {
-let newList = [...list];
-newList.push({
-    id: list.length + 1,
-    name:taskName,
-    done: false
-});
-setList(newList);
+        let newList = [...list];
+        newList.push({
+            id: list.length + 1,
+            name: taskName,
+            done: false
+        });
+        setList(newList);
+    }
+
+    const handleTaskChange = (id: number, done: boolean) => {
+        let newList = [...list];
+        for (let i in newList) {
+            if (newList[i].id === id) {
+                newList[i].done = done;
+            }
+        }
     }
 
     return (
@@ -28,8 +37,12 @@ setList(newList);
 
                 <AddArea onEnter={handleAddTask} />
 
-                {list.map((item, index)=>(
-                    <ListItem key={index} item={item}/>
+                {list.map((item, index) => (
+                    <ListItem
+                        key={index}
+                        item={item}
+                        onChange={handleTaskChange}
+                    />
                 ))}
 
             </C.Area>
